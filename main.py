@@ -21,6 +21,7 @@ while game :
             pygame.quit()
 
     spidor.move()
+    enemy.move()
 
     window.fill((255 , 0 , 0))
     window.blit(fon ,  (0  , 0 ))
