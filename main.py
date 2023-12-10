@@ -7,20 +7,20 @@ import random
 
 pygame.init()
 pygame.mixer.init()
-pygame.mixer.music.load('jungles.ogg')
+pygame.mixer.music.load('the bab baby of getto.mp3')
 pygame.mixer.music.play(-1)
 
 window = pygame.display.set_mode((800 , 500))
 fps = pygame.time.Clock()
 
-fon = pygame.image.load("background.jpg")
+fon = pygame.image.load("pixelartwall.png")
 fon =  pygame.transform.scale(fon  , (800 , 500))
 
 walls = []
 
-spidor = charackter.Charackter(250 , 350 , 50 , 50  ,5  , "hero.png")
-enemy = eneny.Enemy(130 , 340 , 50 , 50  ,2  , "cyborg.png" , 100 ,200 ,300 ,300)
-gold1 = Gold.Gold(400 , 250 , 50 , 50 , "treasure.png")
+spidor = charackter.Charackter(250 , 350 , 50 , 50  ,5  , "pixelartbobr2.png")
+enemy = eneny.Enemy(130 , 340 , 50 , 50  ,2  , "pixil-frame-0.png" , 100 ,200 ,300 ,300)
+gold1 = Gold.Gold(400 , 250 , 50 , 50 , "pixelartbottle.png")
 
 walls.append(Wall(random.randint(-200 , 600) , random.randint(0 , 490) , 200 , 10 ,(0 , 0 , 0)))
 walls.append(Wall(random.randint(0 , 790) , random.randint(0 , 300) , 10 , 200 ,(255 , 255 , 255)))
