@@ -14,13 +14,17 @@ class Charackter:
     def move(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_d]:
-            self.hitbox.x += self.speed
+            if self.hitbox.x < 750 :
+                self.hitbox.x += self.speed
         if keys[pygame.K_a]:
-            self.hitbox.x -= self.speed
+            if self.hitbox.x > 0:
+                self.hitbox.x -= self.speed
         if keys[pygame.K_w]:
-            self.hitbox.y -= self.speed
+            if self.hitbox.y > 0:
+                self.hitbox.y -= self.speed
         if keys[pygame.K_s]:
-            self.hitbox.y += self.speed
+            if self.hitbox.y < 450:
+                self.hitbox.y += self.speed
 
 
 

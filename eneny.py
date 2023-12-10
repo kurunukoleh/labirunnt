@@ -12,8 +12,6 @@ class Enemy:
         self.y1 = y1
         self.y2 = y2
 
-
-
     def render(self , window):
         window.blit(self.texture , (self.hitbox.x , self.hitbox.y))
 
