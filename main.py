@@ -16,15 +16,21 @@ window = pygame.display.set_mode((800 , 500))
 fps = pygame.time.Clock()
 
 fon = pygame.image.load("pixelartwall.png")
-fon =  pygame.transform.scale(fon  , (800 , 500))
+fon = pygame.transform.scale(fon  , (800 , 500))
+fonlose = pygame.image.load("pixelartlose.png")
+fonlose = pygame.transform.scale(fonlose  , (800 , 500))
+fonwin = pygame.image.load("pixelartwin.png")
 
+walcolide = False
+islose = False
+iswin = False
+playerspeed = 5
 walls = []
 
 
-spidor = charackter.Charackter(250 , 350 , 50 , 50  ,5  , "pixelartbobr2.png")
-enemy = eneny.Enemy(300 , 150 , 50 , 50  ,2  , "pixil-frame-0.png" , 300 ,150 ,550 ,350)
-gold1 = Gold.Gold(400 , 400 , 50 , 50 , "pixelartbottle.png")
-
+spidor = charackter.Charackter(250 , 350 , 50 , 50  ,playerspeed  , "pixelartbobr2.png")
+enemy = eneny.Enemy(300 , 150 , 50 , 50  ,2  , "pixelartogr.png" , 300 ,150 ,550 ,350)
+gold1 = Gold.Gold(400 , 400 , 50 , 50 , "pixelarttreasure.png")
 
 walls.append(Wall( 100 , 100 , 200 , 10 ,(0 , 0 , 0)))
 walls.append(Wall( 100 , 100 , 10 , 200 ,(255 , 255 , 255)))
@@ -34,10 +40,11 @@ walls.append(Wall( 430 , 100 , 200 , 10 ,(0 , 0 , 0)))
 walls.append(Wall( 600 , 100 , 10 , 200 ,(255 , 255 , 255)))
 walls.append(Wall( 500 , 300 , 10 , 200 ,(255 , 255 , 255)))
 walls.append(Wall( 300 , 200 , 200 , 10 ,(0 , 0 , 0)))
-walls.append(Wall( 250 , 300 , 200 , 10 ,(0 , 0 , 0)))
+walls.append(Wall( 240 , 300 , 200 , 10 ,(0 , 0 , 0)))
 
 
-sttime  = time.time()
+sttime1  = time.time()
+sttime2  = time.time()
 game = True
 while game :
     for event in pygame.event.get():
@@ -51,12 +58,30 @@ while game :
 
     for wall in walls:
         if spidor.hitbox.colliderect(wall.rect):
-            game = False
-            pygame.quit()
+            spidor.speed = -2
+            walcolide = True
+
+    if walcolide == True:
+        if time.time()-sttime2 > 0.1:
+            sttime2 = time.time()
+            spidor.speed = playerspeed
+            #spidor.speed = 5
+            #islose = True
+            #pygame.mixer.stop()
+            #game = False
+            #pygame.quit()
 
     if spidor.hitbox.colliderect(gold1.hitbox):
         moneysound.play()
         gold1.hitbox.x  = 10000
+        iswin = True
+
+    if spidor.hitbox.colliderect(enemy.hitbox):
+        islose = True
+        pygame.mixer.stop()
+        #game = False
+        #pygame.quit()
+
 
     spidor.move()
     enemy.move()
@@ -64,8 +89,8 @@ while game :
     window.fill((255 , 0 , 0))
     window.blit(fon ,  (0  , 0 ))
 
-    if time.time() - sttime > 1:
-        sttime = time.time()
+    if time.time() - sttime1 > 0.3:
+        sttime1 = time.time()
         for u in walls:
             u.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
@@ -75,5 +100,9 @@ while game :
     gold1.render(window)
     spidor.render(window)
     enemy.render(window)
+    if iswin == True:
+        window.blit(fonwin , (350 , 350))
+    if islose == True:
+        window.blit(fonlose , (0,0))
     pygame.display.flip()
     fps.tick(60)
